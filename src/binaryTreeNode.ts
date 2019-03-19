@@ -30,6 +30,27 @@ export class BinaryTreeNode<T = any> {
     this.right.parent = this;
   }
 
+
+  public find(value: T):Nullable<T> {
+    if (this.value === null) {
+      return null;
+    }
+    if (this.comparetor.equal(value, this.value!)) {
+      return this.value;
+    }
+    if (this.comparetor.lessThan(value, this.value!)) {
+
+      if (this.left) return this.left.find(value);
+      return null;
+    }
+
+    if (this.comparetor.greaterThan(value, this.value!)) {
+      if (this.right) return this.right.find(value);
+
+    }
+    return null;
+  }
+
   *traverseInOrder(
     node: BinaryTreeNode<T>
   ): IterableIterator<BinaryTreeNode<T>> {
