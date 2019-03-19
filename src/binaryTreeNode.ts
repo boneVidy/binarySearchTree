@@ -6,8 +6,8 @@ export class BinaryTreeNode<T = any> {
   protected parent: Nullable<BinaryTreeNode<T>> = null;
 
   protected comparetor: Comparetor<T> = new Comparetor();
-
-  constructor(public value: T, compareFn?: CompareFunction) {
+  // public value: Nullable<T> = null;
+  constructor( public value: Nullable<T> = null, compareFn?: CompareFunction) {
     if (compareFn) {
       this.comparetor = new Comparetor(compareFn);
 

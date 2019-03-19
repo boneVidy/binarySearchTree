@@ -1,9 +1,9 @@
 import { Nullable } from "./types";
 
-export type CompareFunction<T = any> = (a: T, b: T) => 0 | 1 | -1;
+export type CompareFunction<T = any>  = (a: T, b: Nullable<T>) => 0 | 1 | -1;
 export  class Comparetor<T = any> {
   constructor(
-    private compare: CompareFunction<T> = Comparetor.defaultCompareFunction
+    public compare: CompareFunction<T> = Comparetor.defaultCompareFunction
   ) {}
   /**
    * Default comparison function. It just assumes that "a" and "b" are strings or numbers.
@@ -69,11 +69,11 @@ export  class Comparetor<T = any> {
     return this.greaterThan(a, b) || this.equal(a, b);
   }
 
-  /**
-   * Reverses the comparison order.
-   */
-  reverse() {
-    const compareOriginal = this.compare;
-    this.compare = (a, b) => compareOriginal(b, a);
-  }
+  // /**
+  //  * Reverses the comparison order.
+  //  */
+  // reverse() {
+  //   const compareOriginal = this.compare;
+  //   this.compare = (a, b) => compareOriginal(b, a);
+  // }
 }
