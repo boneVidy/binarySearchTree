@@ -1,6 +1,7 @@
-export declare type CompareFunction<T = any> = (a: T, b: T) => 0 | 1 | -1;
+import { Nullable } from "./types";
+export declare type CompareFunction<T = any> = (a: T, b: Nullable<T>) => 0 | 1 | -1;
 export declare class Comparetor<T = any> {
-    private compare;
+    compare: CompareFunction<T>;
     constructor(compare?: CompareFunction<T>);
     /**
      * Default comparison function. It just assumes that "a" and "b" are strings or numbers.
@@ -44,8 +45,4 @@ export declare class Comparetor<T = any> {
      * @return {boolean}
      */
     greaterThanOrEqual(a: T, b: T): boolean;
-    /**
-     * Reverses the comparison order.
-     */
-    reverse(): void;
 }
