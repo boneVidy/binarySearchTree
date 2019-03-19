@@ -2,7 +2,7 @@
   "name": "binarysearchtree",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./lib/es/index.js",
   "scripts": {
     "build": "rm -rf ./lib & ./node_modules/.bin/tsc",
     "test": "./node_modules/.bin/jest"
