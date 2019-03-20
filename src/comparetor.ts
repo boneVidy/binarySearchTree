@@ -1,6 +1,6 @@
 import { Nullable } from "./types";
 
-export type CompareFunction<T = any>  = (a: T, b: Nullable<T>) => 0 | 1 | -1;
+export type CompareFunction<T = any>  = (a: T, b: T) => 0 | 1 | -1;
 export  class Comparetor<T = any> {
   constructor(
     public compare: CompareFunction<T> = Comparetor.defaultCompareFunction

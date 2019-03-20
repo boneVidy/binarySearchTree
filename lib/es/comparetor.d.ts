@@ -1,5 +1,4 @@
-import { Nullable } from "./types";
-export declare type CompareFunction<T = any> = (a: T, b: Nullable<T>) => 0 | 1 | -1;
+export declare type CompareFunction<T = any> = (a: T, b: T) => 0 | 1 | -1;
 export declare class Comparetor<T = any> {
     compare: CompareFunction<T>;
     constructor(compare?: CompareFunction<T>);

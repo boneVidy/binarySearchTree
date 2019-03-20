@@ -8,7 +8,14 @@ export declare class BinarySearchTreeNode<T = any> extends BinaryTreeNode<T> {
     protected comparetor: Comparetor<T>;
     constructor(value: T, compareFn?: CompareFunction);
     insert(value: T): BinarySearchTreeNode<T>;
+    findNode(value: T): Nullable<BinarySearchTreeNode<T>>;
     find(value: T): Nullable<T>;
-    getMax(): Nullable<T>;
-    getMin(): Nullable<T>;
+    getMaxNode(): Nullable<BinarySearchTreeNode<T>>;
+    getMaxValue(): Nullable<T>;
+    getMinNode(): Nullable<BinarySearchTreeNode<T>>;
+    getMinValue(): Nullable<T>;
+    getParent(): Nullable<BinarySearchTreeNode<T>>;
+    removeByValue(value: T): boolean;
+    removeByNode(nodeToRemove: BinarySearchTreeNode<T>): boolean;
+    replaceChild(nodeToReplace: BinarySearchTreeNode<T>, replacementNode: BinarySearchTreeNode<T>): boolean;
 }

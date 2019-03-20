@@ -1,7 +1,7 @@
 import {Comparetor} from '../src';
 describe('comparetor test', () => {
   const numberComparetor = new Comparetor();
-  test('should test number equal without compareFunction', () => {
+  test('should test number compare without compareFunction', () => {
     expect(numberComparetor.equal(1,1)).toBe(true);
     expect(numberComparetor.greaterThan(2,1)).toBe(true);
     expect(numberComparetor.lessThan(1,2)).toBe(true);
@@ -12,7 +12,7 @@ describe('comparetor test', () => {
 
   });
 
-  test('should test number equal with compareFunction', () => {
+  test('should test Object compare with compareFunction', () => {
     type Person = {age: number};
     const comparetor = new Comparetor<Person>((a,b) => {
       if (a.age === b.age) {

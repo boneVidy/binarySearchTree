@@ -5,7 +5,7 @@ export class BinaryTreeNode<T = any> {
   protected parent: Nullable<BinaryTreeNode<T>> = null;
 
   // public value: Nullable<T> = null;
-  constructor( public value: Nullable<T> = null) {
+  constructor( public value: T) {
 
   }
 

@@ -23,7 +23,7 @@ export class BinarySearchTreeNode<T = any> extends BinaryTreeNode<T> {
     }
 
 
-    if (this.comparetor.lessThan(value,this.value!)) {
+    if (this.comparetor.lessThan(value,this.value)) {
       if (this.left) {
         return this.left.insert(value);
       }
@@ -32,7 +32,7 @@ export class BinarySearchTreeNode<T = any> extends BinaryTreeNode<T> {
       return newNode;
     }
 
-    if (this.comparetor.greaterThan(value,this.value!)) {
+    if (this.comparetor.greaterThan(value,this.value)) {
       if (this.right) {
         return this.right.insert(value);
       }
@@ -44,40 +44,133 @@ export class BinarySearchTreeNode<T = any> extends BinaryTreeNode<T> {
     return this;
   }
 
-  public find(value: T):Nullable<T> {
+  public findNode(value: T):Nullable<BinarySearchTreeNode<T>> {
     if (this.value === null) {
       return null;
     }
-    if (this.comparetor.equal(value, this.value!)) {
-      return this.value;
+    if (this.comparetor.equal(value, this.value)) {
+      return this;
     }
-    if (this.comparetor.lessThan(value, this.value!)) {
+    if (this.comparetor.lessThan(value, this.value)) {
 
-      if (this.left) return this.left.find(value);
+      if (this.left) return this.left.findNode(value);
       return null;
     }
 
-    if (this.comparetor.greaterThan(value, this.value!)) {
-      if (this.right) return this.right.find(value);
+    if (this.comparetor.greaterThan(value, this.value)) {
+      if (this.right) return this.right.findNode(value);
 
     }
     return null;
   }
-
-
-  public getMax ():Nullable<T> {
-    if (this.right) {
-      return this.right.getMax();
+  public find(value: T):Nullable<T> {
+    const node = this.findNode(value);
+    if (node) {
+      return node.value;
     }
-    return this.value;
+    return null;
+  }
+
+  public getMaxNode ():Nullable<BinarySearchTreeNode<T>>{
+    if (this.right) {
+      return this.right.getMaxNode();
+    }
+    return this;
+  }
+
+  public getMaxValue ():Nullable<T> {
+    const maxNode = this.getMaxNode();
+    if (maxNode) return maxNode.value;
+  }
+
+  public getMinNode ():Nullable<BinarySearchTreeNode<T>>{
+    if (this.left) {
+      return this.left.getMinNode();
+    }
+    return this;
+  }
+  public getMinValue ():Nullable<T> {
+    const minNode = this.getMinNode();
+    if (minNode) return minNode.value;
+  }
+
+  public getParent () {
+    return this.parent;
+  }
+  // public remove (value: T) {
+  //   if (this.left && this.comparetor.equal(this.left, value )) {
+  //
+  //   }
+  // }
+
+  public removeByValue (value:T) {
+    const nodeToRemove = this.findNode(value);
+    if (!nodeToRemove) return false;
+
+    const parent = nodeToRemove.getParent();
+    if (!nodeToRemove.left && !nodeToRemove.right) {
+      if (parent) {
+        parent.removeByNode(nodeToRemove);
+      }
+      nodeToRemove.value = null as unknown as T;
+    } else if (nodeToRemove.left && nodeToRemove.right) {
+      const nextBiggerNode = nodeToRemove.right.getMinNode();
+      if (!this.comparetor.equal(nextBiggerNode!.value, nodeToRemove.right.value)) {
+        this.removeByValue(nextBiggerNode!.value);
+        nodeToRemove.value = nextBiggerNode!.value;
+      } else {
+        nodeToRemove.value = nodeToRemove.right.value;
+        nodeToRemove.setRight(nodeToRemove.right.right!);
+      }
+    } else {
+      const childNode = nodeToRemove.left || nodeToRemove.right;
+      if (parent) {
+        parent.replaceChild(nodeToRemove, childNode!);
+      } else {
+        nodeToRemove.right = childNode!.right;
+        nodeToRemove.left = childNode!.left;
+        nodeToRemove.value = childNode!.value
+        // BinaryTreeNode.copyNode(childNode, nodeToRemove);
+      }
+    }
+    nodeToRemove.parent = null;
+
+    return true;
+    // if (nodeToRemove)
+  }
+
+  public removeByNode (nodeToRemove:BinarySearchTreeNode<T>) {
+    const {value} = nodeToRemove;
+    if (this.left && this.comparetor.equal(this.left.value, value)) {
+      this.left = null;
+      return true;
+    }
+
+    if (this.right && this.comparetor.equal(this.right.value, value)) {
+      this.right = null;
+      return true;
+    }
+
+    return false;
   }
 
 
-  public getMin ():Nullable<T> {
-    if (this.left) {
-      return this.left.getMin();
+  public replaceChild(nodeToReplace:BinarySearchTreeNode<T>, replacementNode:BinarySearchTreeNode<T>) {
+    if (!nodeToReplace || !replacementNode) {
+      return false;
     }
-    return this.value;
+
+    if (this.left && this.comparetor.equal(this.left.value, nodeToReplace.value)) {
+      this.left = replacementNode;
+      return true;
+    }
+
+    if (this.right && this.comparetor.equal(this.right.value, nodeToReplace.value)) {
+      this.right = replacementNode;
+      return true;
+    }
+
+    return false;
   }
 }
 
