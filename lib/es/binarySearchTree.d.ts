@@ -9,4 +9,6 @@ export declare class BinarySearchTreeNode<T = any> extends BinaryTreeNode<T> {
     constructor(value: T, compareFn?: CompareFunction);
     insert(value: T): BinarySearchTreeNode<T>;
     find(value: T): Nullable<T>;
+    getMax(): Nullable<T>;
+    getMin(): Nullable<T>;
 }

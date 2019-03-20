@@ -63,6 +63,22 @@ export class BinarySearchTreeNode<T = any> extends BinaryTreeNode<T> {
     }
     return null;
   }
+
+
+  public getMax ():Nullable<T> {
+    if (this.right) {
+      return this.right.getMax();
+    }
+    return this.value;
+  }
+
+
+  public getMin ():Nullable<T> {
+    if (this.left) {
+      return this.left.getMin();
+    }
+    return this.value;
+  }
 }
 
 
