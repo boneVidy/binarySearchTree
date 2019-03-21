@@ -29,7 +29,7 @@ describe('binarySearch tree test', function () {
         expect(bsn.getMaxValue()).toBe(15);
         expect(bsn.getMinValue()).toBe(2);
     });
-    it('binarySearchNode<number>.rermoveByNode() and removeByValue()', () => {
+    it('binarySearchNode<number>.rermoveByNode()', () => {
         const bsn = new BinarySearchTreeNode(2);
 
 
@@ -44,16 +44,31 @@ describe('binarySearch tree test', function () {
         expect(bsn.removeByValue(5)).toBe(true);
 
         const arr = Array.from([...bsn]).map(item => item.value);
-
         expect(arr).toEqual([2,3,8,13,15]);
-
-
         expect(bsn.removeByNode(new BinarySearchTreeNode(8))).toBe(true);
         expect(bsn.removeByNode(new BinarySearchTreeNode(5))).toBe(false);
         bsn.insert(1);
         expect(bsn.removeByNode(new BinarySearchTreeNode(1))).toBe(true);
+    });
+    it('binarySearchNode<number>.removeByValue()', () => {
+        const bsn = new BinarySearchTreeNode(10);
 
 
+        bsn.insert(6);
+        bsn.insert((18));
+        bsn.insert(14);
+
+        bsn.insert(33);
+
+        bsn.insert(12);
+        bsn.insert(15);
+        bsn.insert(13);
+
+        bsn.removeByValue(12);
+        console.log([...bsn].map(item => item.value));
+        const node = bsn.findNode(13);
+
+        expect(node!.getParent()!.value).toBe(14);
     });
     it('binarySearchNode<number>.find test', () => {
         const bsn = new BinarySearchTreeNode(2);

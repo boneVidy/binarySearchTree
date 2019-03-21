@@ -116,9 +116,11 @@ export class BinarySearchTreeNode<T = any> extends BinaryTreeNode<T> {
     } else if (nodeToRemove.left && nodeToRemove.right) {
       const nextBiggerNode = nodeToRemove.right.getMinNode();
       if (!this.comparetor.equal(nextBiggerNode!.value, nodeToRemove.right.value)) {
+        //repalce nextBiggerNodeValue to the removeNode
         this.removeByValue(nextBiggerNode!.value);
         nodeToRemove.value = nextBiggerNode!.value;
       } else {
+        // repalce nodeToRemove and nodeToRemove's right
         nodeToRemove.value = nodeToRemove.right.value;
         nodeToRemove.setRight(nodeToRemove.right.right!);
       }
@@ -161,12 +163,15 @@ export class BinarySearchTreeNode<T = any> extends BinaryTreeNode<T> {
     }
 
     if (this.left && this.comparetor.equal(this.left.value, nodeToReplace.value)) {
+
       this.left = replacementNode;
+      replacementNode.parent = this;
       return true;
     }
 
     if (this.right && this.comparetor.equal(this.right.value, nodeToReplace.value)) {
       this.right = replacementNode;
+      replacementNode.parent = this;
       return true;
     }
 
